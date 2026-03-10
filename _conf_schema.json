@@ -1,7 +1,7 @@
 {
     "on_poke": {
         "description": "被戳监听开关",
-        "hint": "打开后, 监听所有戳一戳事件, 然后按权重随机触发一个回复动作, 回复动作包括: 跟戳、反戳、llm回复、回复QQ表情、回复表情包、禁言、触发命令。各个回复动作的详细配置如下",
+        "hint": "打开后, 监听所有戳一戳事件, 然后按权重随机触发一个回复动作, 回复动作包括: 跟戳、反戳、llm回复、回复QQ表情、回复表情包、语音、禁言、触发命令。各个回复动作的详细配置如下",
         "type": "bool",
         "default": true
     },
@@ -153,6 +153,29 @@
                 "description": "表情包图片池",
                 "type": "file",
                 "hint": "触发表情包回复时, 随机从池中选出一张图片发送",
+                "default": []
+            }
+        }
+    },
+    "yuyin": {
+        "description": "回复语音",
+        "type": "object",
+        "items": {
+            "weight": {
+                "description": "触发权重",
+                "hint": "触发概率 = 本权重 / 所有权重之和",
+                "type": "int",
+                "slider": {
+                    "min": 0,
+                    "max": 100,
+                    "step": 1
+                },
+                "default": 0
+            },
+            "pool": {
+                "description": "语音音频池",
+                "type": "file",
+                "hint": "触发语音回复时, 随机从池中选出一个音频文件发送（支持MP3等音频格式）",
                 "default": []
             }
         }
