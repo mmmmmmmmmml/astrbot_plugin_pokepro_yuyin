@@ -2,7 +2,7 @@ import copy
 import random
 
 from astrbot.api import logger
-from astrbot.api.message_components import Face
+from astrbot.api.message_components import Face，Record
 from astrbot.core.message.components import At, Plain
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
@@ -30,6 +30,7 @@ class GetPokeHandler:
             PokeModel.LLM: self.respond_llm,
             PokeModel.FACE: self.respond_face,
             PokeModel.meme: self.respond_meme,
+            PokeModel.YUYIN: self.respond_yuyin,
             PokeModel.BAN: self.respond_ban,
             PokeModel.COMMAND: self.respond_cmd,
         }
@@ -120,6 +121,17 @@ class GetPokeHandler:
         """回复表情包"""
         img = self.cfg.get_image()
         yield event.image_result(img)
+
+    async def respond_yuyin(self, event: AiocqhttpMessageEvent):
+        """回复语音"""
+        audio_path = self.cfg.get_audio()
+        if audio_path:
+            yield event.chain_result([
+                Record(file=audio_path, url=audio_path)
+            ])
+        else:
+            logger.warning("[戳一戳] 语音池为空，无法发送语音")
+            yield None
 
     async def respond_ban(self, event: AiocqhttpMessageEvent):
         """禁言"""
