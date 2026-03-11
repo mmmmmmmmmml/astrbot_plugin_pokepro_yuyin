@@ -2,7 +2,7 @@ import copy
 import random
 
 from astrbot.api import logger
-from astrbot.api.message_components import Face，Record
+from astrbot.api.message_components import Face,Record
 from astrbot.core.message.components import At, Plain
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
